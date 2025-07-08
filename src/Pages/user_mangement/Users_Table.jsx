@@ -44,7 +44,7 @@ const UsersTable = ({ users, handleEdit, handleDelete, currentUser }) => {
                 Delete
               </button> */}
               <Button variant="edit" onClick={() =>  handleEdit(user)} disabled={user.id === currentUser?.id} type="button">Edit</Button>
-              <Button  variant="delete" onClick={() => handleDelete(user.id)} disabled={user.id === currentUser?.id} type="button">Remove</Button>
+              <Button  variant="delete" onClick={() => handleDelete(user.id)} disabled={user.id === currentUser?.id} type="button">Delete</Button>
             </td>
           </tr>
         ))}

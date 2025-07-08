@@ -2,9 +2,10 @@ import React, { useState } from "react";
 // import axios from "axios";
 import { addUser } from "../api/api-service";
 import toast from "react-hot-toast";
+import { userEvents } from "../utils/userEvents";
 
 // ➕ AddUserModal Component
-const AddUserModal = ({ isOpen, onClose, refreshUsers, existingUsers }) => {
+const AddUserModal = ({ isOpen, onClose,  existingUsers }) => {
   // 🔒 Password toggle state
   const [showPassword, setShowPassword] = useState(false);
 
@@ -45,8 +46,9 @@ const AddUserModal = ({ isOpen, onClose, refreshUsers, existingUsers }) => {
     // 📤 Send user to API`
     try {
       await addUser(newUser); // ✅ Use shared API call
+      userEvents.reload(); 
       toast.success("User Added Successfully!");
-      refreshUsers(); // 🔄 Refresh user list
+      userEvents.reload(); // 🔁 Trigger global reload
       onClose(); // ❌ Close modal
       setFormData({ name: "", email: "", role: "", password: "" }); // 🧹 Reset form
     } catch (error) {

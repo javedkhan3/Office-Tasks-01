@@ -1,59 +1,44 @@
 import React, { useEffect, useState } from "react";
-// import axios from "axios";
 import { updateUser } from "../api/api-service"; // Import the updateUser function
 import toast from "react-hot-toast";
 
 const EditUserModal = ({ isOpen, onClose, userData, refreshUsers, existingUsers }) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    role: "",
-    password: "",
-  });
 
-  const [showPassword, setShowPassword] = useState(false); // 👁️ Toggle password visibility
+  const [formData, setFormData] = useState({ name: "", email: "", role: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    if (userData) {
-      setFormData({
-        name: userData.name || "",
-        email: userData.email || "",
-        role: userData.role || "",
-        password: userData.password || "",
-      });
-    }
+    if (userData) setFormData(userData);
   }, [userData]);
+  // useEffect(() => {
+  //   if (userData) {
+  //     setFormData({
+  //       name: userData.name || "",
+  //       email: userData.email || "",
+  //       role: userData.role || "",
+  //       password: userData.password || "",
+  //     });
+  //   }
+  // }, [userData]);
 
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSave = async () => {
-    const duplicateEmail = existingUsers?.some(
-      (user) =>
-        user.email?.toLowerCase().trim() === formData.email.trim().toLowerCase() &&
-        user.id !== userData.id
+ const handleSave = async () => {
+    const emailExists = existingUsers?.some(
+      (u) => u.email?.toLowerCase() === formData.email.toLowerCase() && u.id !== userData.id
     );
 
-    if (duplicateEmail) {
-      toast.error("⚠️ Another user with this email already exists!");
-      return;
-    }
+   if (emailExists) return toast.error("⚠️ Email already exists!");
 
     try {
-      const res = await updateUser(userData.id, formData);
-
-      console.log(res);
-      
-      refreshUsers();
+      await updateUser(userData.id, formData);
+      toast.success("✅ User updated!");
+      refreshUsers?.();
       onClose();
-      toast.success("✅ User updated successfully!");
     } catch (error) {
       console.error("Update error:", error);
-      toast.error("❌ Failed to update user");
+      toast.error(error);
     }
   };
 

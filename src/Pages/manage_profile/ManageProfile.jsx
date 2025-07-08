@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-// import { updateUser } from "../../api/apiservice";
 import toast from "react-hot-toast";
 import { updateUser } from "../../api/api-service";
-// ✅ Removed axios — using centralized API service instead
-// import { updateUser } from "../../apiservice";
+import { userEvents } from "../../utils/userEvents";
 
 const ManageProfile = () => {
   const [user, setUser] = useState(null); // 🔹 Authenticated user
@@ -62,7 +60,10 @@ const ManageProfile = () => {
       // 🧠 Sync localStorage with updated user
       localStorage.setItem("user", JSON.stringify(res));
       setUser(res);
-      setMessage("✅ Profile updated successfully!");
+
+      // 🔁 Trigger global user reload
+      userEvents.reload();
+
       toast.success("✅ Profile updated successfully!");
     } catch (error) {
       console.error("Update failed:", error);

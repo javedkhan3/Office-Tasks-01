@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { deleteUser, fetchUsers } from "../../api/api-service";
 import Loader from "../../components/Loader";
 import toast from "react-hot-toast";
-import { GiDuration } from "react-icons/gi";
+// import { GiDuration } from "react-icons/gi";
 import EditUserModal from "../../modals/Edit_User_Modal";
 import AddUserModal from "../../modals/Add_User_Modal";
 import UsersTable from "./Users_Table";
+import { userEvents } from "../../utils/userEvents";
+import Button from "../../components/Buttons";
+// import { userEvents } from "../../utils/userEvents";
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
@@ -30,9 +33,18 @@ const UserManagement = () => {
     }
   };
 
-  useEffect(() => {
-    loadeUsers();
-  }, []);
+useEffect(() => {
+  loadeUsers(); // initial fetch
+
+  // 🔁 Listen for global reload trigger
+  const handleReload = () => loadeUsers();
+  userEvents.listen(handleReload);
+
+  // 🧹 Clean up listener on unmount
+  return () => userEvents.remove(handleReload);
+}, []);
+
+
 
   // ✅ Delete Handler
   const handleDelete = async (userId) => {
@@ -78,12 +90,7 @@ const UserManagement = () => {
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">User Management</h1>
-          <button
-            onClick={() => setShowAddModal(true)}
-            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
-          >
-            + Add User
-          </button>
+          <Button onClick={() => setShowAddModal(true)} variant="secondary">Add User</Button>
         </div>
 
         {/* Search */}
@@ -123,6 +130,7 @@ const UserManagement = () => {
         isOpen={showAddModal}
         onClose={() => setShowAddModal(false)}
         refreshUsers={loadeUsers}
+         reloadUsers={users}
         existingUsers={users}
       />
     </div>

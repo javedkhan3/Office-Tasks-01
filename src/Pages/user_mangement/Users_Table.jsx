@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../../components/Buttons";
 
 const UsersTable = ({ users, handleEdit, handleDelete, currentUser }) => {
   return (
@@ -20,7 +21,7 @@ const UsersTable = ({ users, handleEdit, handleDelete, currentUser }) => {
             <td className="px-4 py-3">{user.role}</td>
             <td className="px-4 py-3">{user.password}</td>
             <td className="px-4 py-3 space-x-2">
-              <button
+              {/* <button
                 onClick={() => handleEdit(user)}
                 className={`text-blue-600 hover:underline ${
                   user.id === currentUser?.id
@@ -30,8 +31,8 @@ const UsersTable = ({ users, handleEdit, handleDelete, currentUser }) => {
                 disabled={user.id === currentUser?.id}
               >
                 Edit
-              </button>
-              <button
+              </button> */}
+              {/* <button
                 onClick={() => handleDelete(user.id)}
                 className={`text-red-600 hover:underline ${
                   user.id === currentUser?.id
@@ -41,7 +42,9 @@ const UsersTable = ({ users, handleEdit, handleDelete, currentUser }) => {
                 disabled={user.id === currentUser?.id}
               >
                 Delete
-              </button>
+              </button> */}
+              <Button variant="edit" onClick={() =>  handleEdit(user)} disabled={user.id === currentUser?.id} type="button">Edit</Button>
+              <Button  variant="delete" onClick={() => handleDelete(user.id)} disabled={user.id === currentUser?.id} type="button">Delete</Button>
             </td>
           </tr>
         ))}

@@ -13,9 +13,6 @@ const Login = () => {
     e.preventDefault(); // Prevent form reload
     setError(""); // Reset error on each submit
 
-
-
-    
     const email = e.target.email.value;
     const password = e.target.password.value;
 
@@ -28,7 +25,9 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(user));
         // ✅ Save login state to localStorage
         localStorage.setItem("loggedIn", "true");
-toast.success("Login successful!");
+
+        toast.success("Login successful!");
+
         setTimeout(() => {
           navigate("/dashboard");
         }, 1000);

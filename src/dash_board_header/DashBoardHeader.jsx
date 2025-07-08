@@ -1,12 +1,11 @@
-import React, {  useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { Bell, LogOut } from "lucide-react";
 import { FiMoreVertical } from "react-icons/fi";
-// import { ThemeContext } from "../ThemeContext"; // ✅ Import ThemeContext
+import { fetchUsers } from "../api/api-service";
+import { userEvents } from "../utils/userEvents";
 
 const DBoardHeader = () => {
-  // ✅ State setup
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -16,25 +15,32 @@ const DBoardHeader = () => {
   const profileRef = useRef(null);
   const optionsRef = useRef(null);
 
-  // const { theme } = useContext(ThemeContext); // ✅ Theme context (optional for logic)
-
-  // ✅ Fetch logged-in user from localStorage
+  // ✅ Load current user from localStorage
   useEffect(() => {
-    const stored = localStorage.getItem("user");
-    if (stored) setUser(JSON.parse(stored));
+    const loadUser = () => {
+      const stored = localStorage.getItem("user");
+      if (stored) setUser(JSON.parse(stored));
+    };
+
+    loadUser();
+    userEvents.listen(loadUser);
+    return () => userEvents.remove(loadUser);
   }, []);
 
-  // ✅ Fetch all users for notifications
+  // ✅ Fetch users (for notifications)
   useEffect(() => {
-    const fetchUsers = async () => {
+    const getUsers = async () => {
       try {
-        const res = await axios.get("https://684fcb01e7c42cfd1795fa46.mockapi.io/api/v1/CRUD-2");
-        setUsers(res.data);
+        const data = await fetchUsers();
+        setUsers(data);
       } catch (error) {
         console.error("Failed to fetch users", error);
       }
     };
-    fetchUsers();
+
+    getUsers();
+    userEvents.listen(getUsers);
+    return () => userEvents.remove(getUsers);
   }, []);
 
   // ✅ Close dropdowns when clicking outside
@@ -47,11 +53,12 @@ const DBoardHeader = () => {
         setShowOptionsMenu(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // ✅ Count unique new users in the last 1 hour
+  // ✅ Count new signups in the last 1 hour
   const emailSet = new Set();
   const newSignupsCount = users.filter((u) => {
     if (!u.createdAt || !u.email) return false;
@@ -69,13 +76,14 @@ const DBoardHeader = () => {
     <div className="bg-gray-100 dark:bg-gray-900 w-full px-4 pb-4">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Dashboard</h1>
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+          Dashboard
+        </h1>
 
         {/* Icons + Menus */}
         <div className="flex items-center space-x-4 relative">
-
           {/* 🔔 Notification Bell */}
-          <div className="relative">
+          <div className="relative" >
             <Bell
               className="w-6 h-6 text-gray-600 dark:text-gray-300 cursor-pointer"
               onClick={() => setShowNotifications(!showNotifications)}
@@ -86,7 +94,10 @@ const DBoardHeader = () => {
                 <ul className="text-sm mt-2 space-y-1">
                   <li>👥 Total users: {users.length}</li>
                   <li>📂 Files updated</li>
-                  <li>🆕 user{newSignupsCount !== 1 ? "s" : ""} added: {newSignupsCount}</li>
+                  <li>
+                    🆕 user{newSignupsCount !== 1 ? "s" : ""} added:{" "}
+                    {newSignupsCount}
+                  </li>
                 </ul>
               </div>
             )}
@@ -109,7 +120,9 @@ const DBoardHeader = () => {
                       alt="Admin"
                       className="w-16 h-16 rounded-full border-2 border-blue-500 shadow-sm hover:scale-105 transition-transform cursor-pointer"
                     />
-                    <p className="mt-2 font-semibold text-gray-800 dark:text-white">{user?.name || "Unknown"}</p>
+                    <p className="mt-2 font-semibold text-gray-800 dark:text-white">
+                      {user?.name || "Unknown"}
+                    </p>
                     <p className="text-sm text-gray-500 dark:text-gray-300 truncate max-w-[150px]">
                       {user?.email || "Not Available"}
                     </p>
@@ -138,7 +151,10 @@ const DBoardHeader = () => {
 
           {/* ⋮ Options Menu */}
           <div className="relative" ref={optionsRef}>
-            <button onClick={() => setShowOptionsMenu(!showOptionsMenu)} className="focus:outline-none">
+            <button
+              onClick={() => setShowOptionsMenu(!showOptionsMenu)}
+              className="focus:outline-none"
+            >
               <FiMoreVertical className="w-5 h-5 text-gray-900 dark:text-white" />
             </button>
             {showOptionsMenu && (
@@ -158,7 +174,6 @@ const DBoardHeader = () => {
               </div>
             )}
           </div>
-
         </div>
       </div>
     </div>

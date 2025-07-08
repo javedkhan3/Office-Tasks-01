@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import ThemeProvider, { ThemeContext } from "../../ThemeContext";
+import Button from "../../components/Buttons";
 // import { ThemeContext } from "../../ThemeContext";
 
 const Settings = () => {
@@ -44,12 +45,7 @@ const Settings = () => {
 
           {/* Save Button */}
           <div className="pt-4 text-right">
-            <button
-              type="submit"
-              className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
-            >
-              Save Changes
-            </button>
+            <Button type="submit">Save Changes</Button>
           </div>
         </form>
       </div>

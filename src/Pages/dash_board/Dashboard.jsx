@@ -5,6 +5,7 @@ import Loader from "../../components/Loader";
 
 import { fetchUsers } from "../../api/api-service";
 import DashboardCard from "../../components/DashboardCard";
+import Button from "../../components/Buttons";
 // import DashBoardCard from "../../components/DashboardCard";
 
 const Dashboard = () => {
@@ -62,6 +63,7 @@ const Dashboard = () => {
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <DashboardCard title="Total Users" value={users.length} />
 
+              {/* counted sign ups  */}
               <DashboardCard
                 title="New Added Users"
                 value={newSignupsCount}
@@ -80,12 +82,9 @@ const Dashboard = () => {
                 Quick Actions
               </h3>
 
-              <Link
-                to="/users"
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-              >
+              <Button to={"/users"} className=" py-2 px-4">
                 Manage Users
-              </Link>
+              </Button>
             </div>
           </>
         )}

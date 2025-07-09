@@ -83,7 +83,7 @@ const DBoardHeader = () => {
         {/* Icons + Menus */}
         <div className="flex items-center space-x-4 relative">
           {/* 🔔 Notification Bell */}
-          <div className="relative" >
+          <div className="relative">
             <Bell
               className="w-6 h-6 text-gray-600 dark:text-gray-300 cursor-pointer"
               onClick={() => setShowNotifications(!showNotifications)}

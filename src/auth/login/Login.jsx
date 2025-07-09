@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { loginUser } from "../../api/login-Api";
 import toast from "react-hot-toast";
+import Button from "../../components/Buttons";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -85,18 +86,15 @@ const Login = () => {
             <p className="text-red-500 text-sm text-c enter mt-2">{error}</p>
           )}
 
-          <button
-            type="submit"
-            className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-          >
+          <Button type="submit" className="w-full py-2">
             Login
-          </button>
+          </Button>
 
           <div className="text-center mt-4 text-sm text-gray-600">
             i don't have an account?{" "}
-            <a href="/register" className="text-blue-600 hover:underline">
-              sign up
-            </a>
+            <Button to="/register" className="text-blue-600 " variant="link">
+              Sign up
+            </Button>
           </div>
         </form>
       </div>

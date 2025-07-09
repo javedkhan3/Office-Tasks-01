@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { addUser } from "../api/api-service";
 import toast from "react-hot-toast";
 import { userEvents } from "../utils/userEvents";
+import Button from "../components/Buttons";
 
 // ➕ AddUserModal Component
-const AddUserModal = ({ isOpen, onClose,  existingUsers }) => {
+const AddUserModal = ({ isOpen, onClose, existingUsers }) => {
   // 🔒 Password toggle state
   const [showPassword, setShowPassword] = useState(false);
 
@@ -24,7 +25,7 @@ const AddUserModal = ({ isOpen, onClose,  existingUsers }) => {
 
   // 📨 Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     // ✅ Prevent duplicate emails
     const emailExists = existingUsers?.some(
@@ -46,7 +47,7 @@ const AddUserModal = ({ isOpen, onClose,  existingUsers }) => {
     // 📤 Send user to API`
     try {
       await addUser(newUser); // ✅ Use shared API call
-      userEvents.reload(); 
+      userEvents.reload();
       toast.success("User Added Successfully!");
       userEvents.reload(); // 🔁 Trigger global reload
       onClose(); // ❌ Close modal
@@ -98,7 +99,11 @@ const AddUserModal = ({ isOpen, onClose,  existingUsers }) => {
           className="w-full mb-3 p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded"
           required
         >
-          <option value="" disabled className="text-gray-400 dark:text-gray-500">
+          <option
+            value=""
+            disabled
+            className="text-gray-400 dark:text-gray-500"
+          >
             -- Select Role --
           </option>
           <option value="Front-end Developer">Front-end Developer</option>
@@ -127,19 +132,17 @@ const AddUserModal = ({ isOpen, onClose,  existingUsers }) => {
 
         {/* Buttons */}
         <div className="flex justify-end gap-2">
-          <button
+          <Button
             type="button"
+            variant="danger"
             onClick={onClose}
-            className="px-4 py-2 bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white rounded"
+            className="py-2 px-4"
           >
             Cancel
-          </button>
-          <button
-            type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
+          </Button>
+          <Button type="submit" className="p-2 px-4">
             Add User
-          </button>
+          </Button>
         </div>
       </form>
     </div>

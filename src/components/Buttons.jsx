@@ -10,7 +10,7 @@ const Button = ({
   disabled = false,
 }) => {
   const baseStyles =
-    "px-4 py-2 rounded font-medium focus:outline-none transition";
+    " rounded font-medium focus:outline-none transition";
 
   const variants = {
     primary: "bg-blue-600 text-white hover:bg-blue-700",

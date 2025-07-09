@@ -45,7 +45,7 @@ const Settings = () => {
 
           {/* Save Button */}
           <div className="pt-4 text-right">
-            <Button type="submit">Save Changes</Button>
+            <Button type="submit" className="px-4 py-2">Save Changes</Button>
           </div>
         </form>
       </div>

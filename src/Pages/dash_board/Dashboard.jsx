@@ -7,7 +7,6 @@ import { fetchUsers } from "../../api/api-service";
 import DashboardCard from "../../components/DashboardCard";
 // import DashBoardCard from "../../components/DashboardCard";
 
-
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -76,18 +75,17 @@ const Dashboard = () => {
             </div>
 
             {/* ⚡ Quick Actions */}
-            <div className="bg-white dark:bg-gray-800 shadow rounded p-6 mt-10">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+            <div className="bg-white dark:bg-gray-800  rounded p-6 mt-10 md:w-[48%] lg:w-[32%] pb-8">
+              <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-5">
                 Quick Actions
               </h3>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  to="/users"
-                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-                >
-                  Manage Users
-                </Link>
-              </div>
+
+              <Link
+                to="/users"
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+              >
+                Manage Users
+              </Link>
             </div>
           </>
         )}

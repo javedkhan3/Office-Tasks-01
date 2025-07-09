@@ -90,7 +90,7 @@ useEffect(() => {
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">User Management</h1>
-          <Button onClick={() => setShowAddModal(true)} variant="secondary">Add User</Button>
+          <Button onClick={() => setShowAddModal(true)} variant="secondary" className="px-4 py-2">Add User</Button>
         </div>
 
         {/* Search */}

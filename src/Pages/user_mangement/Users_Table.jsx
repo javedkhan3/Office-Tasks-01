@@ -21,30 +21,22 @@ const UsersTable = ({ users, handleEdit, handleDelete, currentUser }) => {
             <td className="px-4 py-3">{user.role}</td>
             <td className="px-4 py-3">{user.password}</td>
             <td className="px-4 py-3 space-x-2">
-              {/* <button
+              <Button
+                variant="edit"
                 onClick={() => handleEdit(user)}
-                className={`text-blue-600 hover:underline ${
-                  user.id === currentUser?.id
-                    ? "opacity-50 cursor-not-allowed"
-                    : ""
-                }`}
                 disabled={user.id === currentUser?.id}
+                type="button"
               >
                 Edit
-              </button> */}
-              {/* <button
+              </Button>
+              <Button
+                variant="delete"
                 onClick={() => handleDelete(user.id)}
-                className={`text-red-600 hover:underline ${
-                  user.id === currentUser?.id
-                    ? "opacity-50 cursor-not-allowed"
-                    : ""
-                }`}
                 disabled={user.id === currentUser?.id}
+                type="button"
               >
                 Delete
-              </button> */}
-              <Button variant="edit" onClick={() =>  handleEdit(user)} disabled={user.id === currentUser?.id} type="button">Edit</Button>
-              <Button  variant="delete" onClick={() => handleDelete(user.id)} disabled={user.id === currentUser?.id} type="button">Delete</Button>
+              </Button>
             </td>
           </tr>
         ))}

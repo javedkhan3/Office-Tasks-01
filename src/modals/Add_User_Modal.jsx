@@ -4,12 +4,12 @@ import { addUser } from "../api/api-service";
 import toast from "react-hot-toast";
 import { userEvents } from "../utils/userEvents";
 import Button from "../components/Buttons";
+import PasswordInput from "../components/PasswordInput";
+import SelectInput from "../components/SelectInput";
+import PageHeading from "../components/PageHeading";
 
 // ➕ AddUserModal Component
 const AddUserModal = ({ isOpen, onClose, existingUsers }) => {
-  // 🔒 Password toggle state
-  const [showPassword, setShowPassword] = useState(false);
-
   // 🟡 Form data state
   const [formData, setFormData] = useState({
     name: "",
@@ -67,7 +67,7 @@ const AddUserModal = ({ isOpen, onClose, existingUsers }) => {
         onSubmit={handleSubmit}
         className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg w-full max-w-md text-gray-800 dark:text-gray-200"
       >
-        <h2 className="text-xl font-bold mb-4">Add New User</h2>
+       <PageHeading title="Add User" showBreakLine={true} />
 
         {/* Name */}
         <input
@@ -76,7 +76,7 @@ const AddUserModal = ({ isOpen, onClose, existingUsers }) => {
           placeholder="Full Name"
           value={formData.name}
           onChange={handleChange}
-          className="w-full mb-3 p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded"
+          className="w-full mb-3 p-2 pl-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded"
           required
         />
 
@@ -87,47 +87,22 @@ const AddUserModal = ({ isOpen, onClose, existingUsers }) => {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full mb-3 p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded"
+          className="w-full mb-3 p-2  pl-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded"
           required
         />
 
         {/* Role Dropdown */}
-        <select
-          name="role"
-          value={formData.role}
-          onChange={handleChange}
-          className="w-full mb-3 p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded"
-          required
-        >
-          <option
-            value=""
-            disabled
-            className="text-gray-400 dark:text-gray-500"
-          >
-            -- Select Role --
-          </option>
-          <option value="Front-end Developer">Front-end Developer</option>
-          <option value="Back-end Developer">Back-end Developer</option>
-          <option value="Full-stack Developer">Full-stack Developer</option>
-        </select>
+       
+        <SelectInput  name="role" value={formData.role} onChange={handleChange} options={['Front-end Developer', 'Back-end Developer', 'Full-stack Developer']}/>
 
         {/* Password with toggle */}
         <div className="relative mb-4">
-          <input
-            type={showPassword ? "text" : "password"}
+          <PasswordInput
             name="password"
-            placeholder="Password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full p-2 pr-10 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded"
-            required
+            showLabel={false}
           />
-          <span
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute inset-y-0 right-3 flex items-center text-gray-500 dark:text-gray-400 cursor-pointer"
-          >
-            {showPassword ? "🙈" : "👁️"}
-          </span>
         </div>
 
         {/* Buttons */}

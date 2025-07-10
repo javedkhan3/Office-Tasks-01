@@ -23,7 +23,7 @@ const Button = ({
   };
 
   const combinedClasses = `${baseStyles} ${variants[variant]} ${className} ${
-    disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+    disabled ? "opacity-50 cursor-not-allowed" : ""
   }`;
 
 

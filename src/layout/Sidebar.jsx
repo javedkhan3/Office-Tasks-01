@@ -15,10 +15,10 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 h-[100vh] pt-5 bg-[#5e7e74] text-white flex flex-col justify-between">
+    <aside className="w-64 h-[100vh] pt -5 bg-[#5e7e74] text-white flex flex-col justify-between">
       <div>
         {/* Logo */}
-        <Link to="/" className="px-6 pt-5 mt-4 text-4xl font-bold block">
+        <Link to="/" className="px-6 pt- 5 mt-3.5 text-4xl font-bold block text-white hover:text-gray-700 transition-all  ">
           OutScalers
         </Link>
 

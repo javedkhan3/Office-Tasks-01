@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { updateUser } from "../../api/api-service";
 import { userEvents } from "../../utils/userEvents";
+import Label from "../../components/Label";
+import PasswordInput from "../../components/PasswordInput";
+import TextInput from "../../components/TextInput";
+import SelectInput from "../../components/SelectInput";
+import Button from "../../components/Buttons";
 
 const ManageProfile = () => {
   const [user, setUser] = useState(null); // 🔹 Authenticated user
-  const [showPassword, setShowPassword] = useState(false); // 🔒 Toggle password visibility
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -81,10 +85,8 @@ const ManageProfile = () => {
 
         <div className="space-y-6">
           {/* Name */}
-          <div>
-            <label className="block text-sm font-medium text-gray-600 dark:text-gray-300">
-              Full Name
-            </label>
+          {/* <div>
+            <Label text="Full Name" htmlFor="name" className=" text-sm block" />
             <input
               type="text"
               name="name"
@@ -92,59 +94,40 @@ const ManageProfile = () => {
               onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-white"
             />
-          </div>
-
+          </div> */}
+          <TextInput
+            label="Full Name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
           {/* Email */}
-          <div>
-            <label className="block text-sm font-medium text-gray-600 dark:text-gray-300">
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-white"
-            />
-          </div>
-
-          {/* Role */}
-          <div>
-            <label className="block text-sm font-medium text-gray-600 dark:text-gray-300">
-              Role
-            </label>
-            <select
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-white"
-            >
-              <option value="Front-end Developer">Front-end Developer</option>
-              <option value="Back-end Developer">Back-end Developer</option>
-              <option value="Full-stack Developer">Full-stack Developer</option>
-            </select>
-          </div>
+          <TextInput
+            label="Email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          {/* SelectOptions  */}
+          <SelectInput
+            label="Role"
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            options={[
+              "Front-end Developer",
+              "Back-end Developer",
+              "Full-stack Developer",
+            ]}
+          />
 
           {/* Password */}
           <div>
-            <label className="block text-sm font-medium text-gray-600 dark:text-gray-300">
-              Password
-            </label>
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                className="mt-1 block w-full px-4 py-2 pr-10 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-white"
-              />
-              <span
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-3 flex items-center text-gray-500 dark:text-gray-300 cursor-pointer"
-              >
-                {showPassword ? "🙈" : "👁️"}
-              </span>
-            </div>
+            <PasswordInput
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
           </div>
 
           {/* Save Button */}
@@ -160,15 +143,14 @@ const ManageProfile = () => {
                 {message}
               </p>
             )}
-            <button
+
+            <Button
               onClick={handleSave}
               disabled={loading}
-              className={`bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+              className="px-6 py-2"
             >
-              {loading ? "Saving..." : "Save Changes"}
-            </button>
+              Save
+            </Button>
           </div>
         </div>
       </div>

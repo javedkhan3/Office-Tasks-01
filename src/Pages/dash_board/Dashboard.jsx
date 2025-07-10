@@ -5,8 +5,8 @@ import Loader from "../../components/Loader";
 
 import { fetchUsers } from "../../api/api-service";
 import DashboardCard from "../../components/DashboardCard";
+import Button from "../../components/Buttons";
 // import DashBoardCard from "../../components/DashboardCard";
-
 
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
@@ -63,6 +63,7 @@ const Dashboard = () => {
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <DashboardCard title="Total Users" value={users.length} />
 
+              {/* counted sign ups  */}
               <DashboardCard
                 title="New Added Users"
                 value={newSignupsCount}
@@ -76,18 +77,14 @@ const Dashboard = () => {
             </div>
 
             {/* ⚡ Quick Actions */}
-            <div className="bg-white dark:bg-gray-800 shadow rounded p-6 mt-10">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+            <div className="bg-white dark:bg-gray-800  rounded p-6 mt-10 md:w-[48%] lg:w-[32%] pb-8">
+              <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-5">
                 Quick Actions
               </h3>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  to="/users"
-                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-                >
-                  Manage Users
-                </Link>
-              </div>
+
+              <Button to={"/users"} className=" py-2 px-4">
+                Manage Users
+              </Button>
             </div>
           </>
         )}

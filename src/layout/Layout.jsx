@@ -2,9 +2,6 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import DBoardHeader from "../dash_board_header/DashBoardHeader";
-// import DBoardHeader from "../dash_board_header/DashBoardHeader";
-// import DBoardHeader from "../dash-board-header/Dash_Board_Header";
-// import DBoardHeader from "../dashboardheader/DBoardHeader";
 
 const Layout = () => {
   return (

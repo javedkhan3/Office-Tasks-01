@@ -4,6 +4,7 @@ import { Bell, LogOut } from "lucide-react";
 import { FiMoreVertical } from "react-icons/fi";
 import { fetchUsers } from "../api/api-service";
 import { userEvents } from "../utils/userEvents";
+import PageHeading from "../components/PageHeading";
 
 const DBoardHeader = () => {
   const [user, setUser] = useState(null);
@@ -76,14 +77,12 @@ const DBoardHeader = () => {
     <div className="bg-gray-100 dark:bg-gray-900 w-full px-4 pb-4">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-          Dashboard
-        </h1>
+        <PageHeading title="Dashboard" />
 
         {/* Icons + Menus */}
         <div className="flex items-center space-x-4 relative">
           {/* 🔔 Notification Bell */}
-          <div className="relative" >
+          <div className="relative">
             <Bell
               className="w-6 h-6 text-gray-600 dark:text-gray-300 cursor-pointer"
               onClick={() => setShowNotifications(!showNotifications)}
@@ -128,8 +127,6 @@ const DBoardHeader = () => {
                     </p>
                   </div>
                 </Link>
-
-                <hr className="my-2 mt-4 border-gray-300 dark:border-gray-600" />
 
                 <Link
                   to="/manage-profile"

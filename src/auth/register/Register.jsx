@@ -3,9 +3,10 @@ import { useNavigate, Link } from "react-router-dom";
 // import { registerUser } from "../../api/registerUser";
 import toast from "react-hot-toast";
 import { registerUser } from "../../api/register-User";
+import Button from "../../components/Buttons";
 
 const Register = () => {
- const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // ✅ Initialize form data state
   const [formData, setFormData] = useState({
@@ -27,8 +28,8 @@ const Register = () => {
   // ✅ Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault(); // 🔹 Prevent page reload
-    setError("");        // 🔹 Clear old error
-    setSuccess("");      // 🔹 Clear old success
+    setError(""); // 🔹 Clear old error
+    setSuccess(""); // 🔹 Clear old success
 
     try {
       // ✅ Call helper to register user via API
@@ -49,7 +50,6 @@ const Register = () => {
     }
   };
 
-  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white p-6 rounded-lg shadow">
@@ -83,9 +83,9 @@ const Register = () => {
             className="w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
           >
             <option disabled>Select Role</option>
-                      <option value="Front-end Developer">Front-end Developer</option>
-          <option value="Back-end Developer">Back-end Developer</option>
-          <option value="Full-stack Developer">Full-stack Developer</option>
+            <option value="Front-end Developer">Front-end Developer</option>
+            <option value="Back-end Developer">Back-end Developer</option>
+            <option value="Full-stack Developer">Full-stack Developer</option>
           </select>
 
           <input
@@ -101,18 +101,15 @@ const Register = () => {
           {error && <p className="text-red-500 text-sm">{error}</p>}
           {success && <p className="text-green-500 text-sm">{success}</p>}
 
-          <button
-            type="submit"
-            className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
+          <Button type="submit" className="w-full py-2">
             Register
-          </button>
+          </Button>
 
           <div className="text-center mt-4 text-sm text-gray-600">
             Already have an account?{" "}
-            <Link to="/login" className="text-blue-600 hover:underline">
+            <Button to="/login" className="text-blue-600" variant="link">
               Login
-            </Link>
+            </Button>
           </div>
         </form>
       </div>

@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { deleteUser, fetchUsers } from "../../api/api-service";
 import Loader from "../../components/Loader";
 import toast from "react-hot-toast";
-// import { GiDuration } from "react-icons/gi";
 import EditUserModal from "../../modals/Edit_User_Modal";
 import AddUserModal from "../../modals/Add_User_Modal";
 import UsersTable from "./Users_Table";
 import { userEvents } from "../../utils/userEvents";
 import Button from "../../components/Buttons";
-// import { userEvents } from "../../utils/userEvents";
+import PageHeading from "../../components/PageHeading";
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
@@ -33,18 +32,16 @@ const UserManagement = () => {
     }
   };
 
-useEffect(() => {
-  loadeUsers(); // initial fetch
+  useEffect(() => {
+    loadeUsers(); // initial fetch
 
-  // 🔁 Listen for global reload trigger
-  const handleReload = () => loadeUsers();
-  userEvents.listen(handleReload);
+    // 🔁 Listen for global reload trigger
+    const handleReload = () => loadeUsers();
+    userEvents.listen(handleReload);
 
-  // 🧹 Clean up listener on unmount
-  return () => userEvents.remove(handleReload);
-}, []);
-
-
+    // 🧹 Clean up listener on unmount
+    return () => userEvents.remove(handleReload);
+  }, []);
 
   // ✅ Delete Handler
   const handleDelete = async (userId) => {
@@ -89,8 +86,16 @@ useEffect(() => {
       <div className="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded shadow px-4 py-6">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">User Management</h1>
-          <Button onClick={() => setShowAddModal(true)} variant="secondary">Add User</Button>
+          {/* Heading  */}
+          <PageHeading title="User Management" />
+
+          <Button
+            onClick={() => setShowAddModal(true)}
+            variant="secondary"
+            className="px-4 py-2"
+          >
+            Add User
+          </Button>
         </div>
 
         {/* Search */}
@@ -130,7 +135,7 @@ useEffect(() => {
         isOpen={showAddModal}
         onClose={() => setShowAddModal(false)}
         refreshUsers={loadeUsers}
-         reloadUsers={users}
+        reloadUsers={users}
         existingUsers={users}
       />
     </div>

@@ -77,7 +77,7 @@ const DBoardHeader = () => {
     <div className="bg-gray-100 dark:bg-gray-900 w-full px-4 pb-4">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <PageHeading title="Dashboard" />
+        <PageHeading title="Dashboard"/>
 
         {/* Icons + Menus */}
         <div className="flex items-center space-x-4 relative">

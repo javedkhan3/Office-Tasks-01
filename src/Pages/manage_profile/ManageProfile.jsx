@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { updateUser } from "../../api/api-service";
 import { userEvents } from "../../utils/userEvents";
